@@ -1,0 +1,1 @@
+-- placeholder: mantislfrs17_general_ledger_header.hql

@@ -1,0 +1,1 @@
+-- placeholder: p7dss_general_ledger_header.hql

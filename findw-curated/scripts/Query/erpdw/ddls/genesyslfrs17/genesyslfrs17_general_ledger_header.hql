@@ -1,0 +1,1 @@
+-- placeholder: genesyslfrs17_general_ledger_header.hql

@@ -1,0 +1,1 @@
+-- Auto-generated placeholder for 10+curated_error+sparksql+append+glue.sql

@@ -1,0 +1,1 @@
+-- Auto-generated placeholder for 02+lkp_actvty_ldgr_nm+rdm.sql

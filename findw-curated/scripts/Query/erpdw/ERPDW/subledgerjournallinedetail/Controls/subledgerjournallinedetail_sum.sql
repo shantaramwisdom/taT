@@ -1,0 +1,1 @@
+-- placeholder: subledgerjournallinedetail_sum.sql

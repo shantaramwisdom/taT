@@ -1,0 +1,1 @@
+-- Auto-generated placeholder for 09+valid_records+sparksql.sql

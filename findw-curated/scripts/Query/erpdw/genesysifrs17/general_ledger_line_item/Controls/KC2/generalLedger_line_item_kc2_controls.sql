@@ -1,0 +1,1 @@
+-- placeholder: generalLedger_line_item_kc2_controls.sql

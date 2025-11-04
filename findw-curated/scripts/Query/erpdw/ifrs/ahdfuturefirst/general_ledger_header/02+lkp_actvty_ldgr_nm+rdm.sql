@@ -1,0 +1,1 @@
+-- placeholder: 02+lkp_actvty_ldgr_nm+rdm.sql

@@ -1,0 +1,1 @@
+-- placeholder: lifepro109lfrs17_general_ledger_line_item.hql

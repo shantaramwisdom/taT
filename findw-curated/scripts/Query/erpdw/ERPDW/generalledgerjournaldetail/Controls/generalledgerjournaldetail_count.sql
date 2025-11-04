@@ -1,0 +1,1 @@
+-- placeholder: generalledgerjournaldetail_count.sql

@@ -1,0 +1,1 @@
+-- placeholder: subledgerjournallinedetail_additional_controls.sql

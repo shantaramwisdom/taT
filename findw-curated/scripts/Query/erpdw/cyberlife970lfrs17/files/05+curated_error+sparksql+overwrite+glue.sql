@@ -1,0 +1,1 @@
+-- Auto-generated placeholder for 05+curated_error+sparksql+overwrite+glue.sql

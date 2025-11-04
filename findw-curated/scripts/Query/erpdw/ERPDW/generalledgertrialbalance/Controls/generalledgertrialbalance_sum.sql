@@ -1,0 +1,1 @@
+-- placeholder: generalledgertrialbalance_sum.sql

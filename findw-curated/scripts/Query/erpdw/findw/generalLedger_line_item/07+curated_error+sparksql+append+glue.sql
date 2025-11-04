@@ -1,0 +1,1 @@
+-- placeholder: 07+curated_error+sparksql+append+glue.sql

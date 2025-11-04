@@ -1,0 +1,1 @@
+-- Auto-generated placeholder for generalLedger_header_kc2_controls.sql
