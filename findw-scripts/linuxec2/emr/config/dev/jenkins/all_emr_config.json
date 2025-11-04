@@ -1,0 +1,206 @@
+{
+  "name": "<emr_name>-<cur_day_format>",
+  "step_concurrency_level": 15,
+  "log_uri": "s3://ta-individual-findw-<env>-logs/emr/",
+  "release_label": "emr-7.10.0",
+  "instance_type": "m5.8xlarge",
+  "applications": [
+    "Tez",
+    "Spark",
+    "Hive",
+    "Hadoop",
+    "Hue"
+  ],
+  "Keep_Alive": "True",
+  "Ebs_Root_Volume_Size": 100,
+  "Ec2_Key_Name": "ta-individual-findw",
+  "InstanceProfile": "ta-individual-findw-<env>-emr-ec2-role",
+  "Service_Role": "ta-individual-findw-<env>-emr-autoscale",
+  "Auto_Scaling_Role": "ta-individual-findw-<env>-sec-config",
+  "Security_Configuration": "ta-individual-findw-<env>-sec-config",
+  "Emr_Managed_Master_Security_Group": "sg-02405d8f75a34c167",
+  "Emr_Managed_Slave_Security_Group": "sg-9d2e400381872bb",
+  "Service_Access_Security_Group": "sg-8276dc0b9ea53ce67",
+  "Additional_slave_Security_Groups": [
+    "sg-02405d8f75a34c167",
+    "sg-0488987483b815808",
+    "sg-0b7e1d479ac864608"
+  ],
+  "Additional_Master_Security_Groups": [
+    "sg-02405d8f75a34c167",
+    "sg-0488987483b815808",
+    "sg-0b7e1d479ac864608"
+  ],
+  "Subnet_Id": "subnet-0f4481e7a214e774a",
+  "Subnet_Ids": [
+    "subnet-0f4481e7a214e774a",
+    "subnet-03e4e31fa2c816618",
+    "subnet-06627ffb48a7b1021"
+  ],
+  "Instance_Fleets": [
+    {
+      "Name": "ta-individual-findw-<env>-<project>-emr-master",
+      "InstanceFleetType": "MASTER",
+      "TargetOnDemandCapacity": 1,
+      "TargetSpotCapacity": 0,
+      "InstanceTypeConfigs": [
+        {
+          "InstanceType": "m5.8xlarge"
+        }
+      ]
+    },
+    {
+      "Name": "ta-individual-findw-<env>-<project>-emr-core",
+      "InstanceFleetType": "CORE",
+      "TargetOnDemandCapacity": 12,
+      "InstanceTypeConfigs": [
+        {
+          "InstanceType": "m5.8xlarge",
+          "WeightedCapacity": 2
+        },
+        {
+          "InstanceType": "m5.16xlarge",
+          "WeightedCapacity": 4
+        },
+        {
+          "InstanceType": "m5.24xlarge",
+          "WeightedCapacity": 6
+        },
+        {
+          "InstanceType": "r5.16xlarge",
+          "WeightedCapacity": 4
+        },
+        {
+          "InstanceType": "r5.24xlarge",
+          "WeightedCapacity": 6
+        }
+      ]
+    },
+    {
+      "Name": "ta-individual-findw-<env>-<project>-emr-task",
+      "InstanceFleetType": "TASK",
+      "TargetOnDemandCapacity": 6,
+      "InstanceTypeConfigs": [
+        {
+          "InstanceType": "m5.8xlarge",
+          "WeightedCapacity": 2
+        },
+        {
+          "InstanceType": "m5.16xlarge",
+          "WeightedCapacity": 4
+        },
+        {
+          "InstanceType": "m5.24xlarge",
+          "WeightedCapacity": 6
+        },
+        {
+          "InstanceType": "r5.16xlarge",
+          "WeightedCapacity": 4
+        },
+        {
+          "InstanceType": "r5.24xlarge",
+          "WeightedCapacity": 6
+        }
+      ]
+    }
+  ],
+  "Managed_Scaling_Policy": {
+    "ComputeLimits": {
+      "UnitType": "InstanceFleetUnits",
+      "MaximumOnDemandCapacityUnits": 30,
+      "MaximumCapacityUnits": 30,
+      "MinimumCapacityUnits": 18,
+      "MaximumCoreCapacityUnits": 12
+    }
+  },
+  "Configurations": [
+    {
+      "Classification": "spark",
+      "Properties": {
+        "maximizeResourceAllocation": "true"
+      }
+    },
+    {
+      "Classification": "export",
+      "Properties": {
+        "PYSPARK_PYTHON": "/usr/bin/python3"
+      }
+    },
+    {
+      "Classification": "spark-env",
+      "Properties": {}
+    },
+    {
+      "Classification": "spark-defaults",
+      "Properties": {
+        "spark.sql.parquet.datetimeRebaseModeInWrite": "CORRECTED",
+        "spark.sql.parquet.datetimeRebaseModeInRead": "CORRECTED",
+        "spark.sql.parquet.int96RebaseModeInRead": "CORRECTED",
+        "spark.sql.parquet.int96RebaseModeInWrite": "CORRECTED",
+        "spark.sql.parquet.writeLegacyFormat": "true",
+        "spark.port.maxRetries": "100"
+      }
+    },
+    {
+      "Classification": "spark-hive-site",
+      "Properties": {
+        "hive.server2.session.check.interval": "3600000",
+        "hive.metastore.client.factory.class": "com.amazonaws.glue.catalog.metastore.AWSGlueDataCatalogHiveClientFactory",
+        "hive.server2.idle.operation.timeout": "7200000",
+        "hive.cluster.delegation.token.store.class": "org.apache.hadoop.hive.thrift.DBTokenStore",
+        "hive.server2.idle.session.timeout": "21600000"
+      }
+    },
+    {
+      "Classification": "yarn-site",
+      "Properties": {
+        "yarn.resourcemanager.scheduler.class": "org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler",
+        "yarn.resourcemanager.nodemanager.graceful-decommission-timeout-secs": "1800",
+        "yarn.scheduler.fair.max.assign": "500",
+        "yarn.scheduler.fair.allow.undeclared.pools": "false",
+        "yarn.scheduler.fair.assignmultiple": "true",
+        "yarn.scheduler.fair.user-as-default-queue": "false"
+      }
+    },
+    {
+      "Classification": "hive-site",
+      "Properties": {
+        "hive.metastore.client.factory.class": "com.amazonaws.glue.catalog.metastore.AWSGlueDataCatalogHiveClientFactory"
+      }
+    },
+    {
+      "Classification": "emrfs-site",
+      "Properties": {
+        "fs.s3.maxRetries": "200",
+        "fs.s3.maxConnections": "2000",
+        "fs.s3.threads.max": "100",
+        "fs.s3a.connection.maximum": "2000"
+      }
+    },
+    {
+      "Classification": "oozie-site",
+      "Properties": {
+        "oozie.https.enabled": "false"
+      }
+    }
+  ],
+  "Auto_Termination_Policy": {
+    "IdleTimeout": 3600
+  },
+  "Bootstrap_Actions": [
+    {
+      "Name": "Finance DW EMR BootStrap Action",
+      "ScriptBootstrapAction": {
+        "Path": "s3://ta-individual-findw-<env>-codedeployment/miscellaneous/bootstrap-action/bootstrap_action.sh",
+        "Args": [
+          "<env>",
+          "ta-individual-findw-<env>-common",
+          "findw",
+          "<project>",
+          "<cycle_date>",
+          "<bde_flag>"
+        ]
+      }
+    }
+  ]
+}

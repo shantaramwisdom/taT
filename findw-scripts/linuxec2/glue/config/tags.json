@@ -1,0 +1,16 @@
+{
+  "Name": "<crawler_name>",
+  "TerraformManaged": "false",
+  "PrimaryLOB": "Individual",
+  "ResourceContact": "tatechdataengineering-dwops@transamerica.com",
+  "SecondaryResourceContact": "vignesh.gnuyt@transamerica.com",
+  "Project": "RTS-1333",
+  "BillingCostCentre": "0701-PI215013 Digital Platform",
+  "AGTManaged": "false",
+  "ResourcePurpose": "TA FINDW <env> resources",
+  "Environment": "<env>",
+  "Application": "CIO02456118:FINANCE DATA WARE HOUSE",
+  "Division": "transamerica",
+  "Channel": "transamerica.individual",
+  "map-migrated": "d-server-01qco2ca09vpj1"
+}

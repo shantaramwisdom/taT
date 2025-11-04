@@ -1,0 +1,60 @@
+{
+    "Tags": [
+        {
+            "Key": "Name",
+            "Value": "<emr_name>"
+        },
+        {
+            "Key": "TerraformManaged",
+            "Value": "false"
+        },
+        {
+            "Key": "PrimaryLOB",
+            "Value": "Individuel"
+        },
+        {
+            "Key": "ResourceContact",
+            "Value": "tatechdataengineering-devops@transamerica.com"
+        },
+        {
+            "Key": "SecondaryResourceContact",
+            "Value": "vignesh.guntu@transamerica.com"
+        },
+        {
+            "Key": "Project",
+            "Value": "RTS-1333"
+        },
+        {
+            "Key": "BillingCostCenter",
+            "Value": "0701-PT215013 Digital Platform"
+        },
+        {
+            "Key": "AGTManaged",
+            "Value": "false"
+        },
+        {
+            "Key": "ResourcePurpose",
+            "Value": "TA FINW <env> resources"
+        },
+        {
+            "Key": "Environment",
+            "Value": "<env>"
+        },
+        {
+            "Key": "Application",
+            "Value": "CIO82456118:FINANCE DATA WARE HOUSE"
+        },
+        {
+            "Key": "Division",
+            "Value": "transamerica"
+        },
+        {
+            "Key": "Channel",
+            "Value": "transamerica.individuel"
+        },
+        {
+            "Key": "amp-migrated",
+            "Value": "d-server-01qcc2a09yuli"
+        }
+    ]
+}

@@ -1,0 +1,176 @@
+{
+  "classifier_actions": [
+    "delete_classifier",
+    "create_classifier"
+  ],
+  "classifier_list": [
+    "gdqprecondition",
+    "gdqrulesdictionary",
+    "gdqrunorder",
+    "gdqocrunorder",
+    "gdqdatastorage_ltcg",
+    "gdqdatastorage_ltcghybrid"
+  ],
+  "crawler_actions": [
+    "delete_crawler",
+    "create_crawler",
+    "start_crawler",
+    "update_crawler"
+  ],
+  "crawler_list": [
+    "gdqprecondition",
+    "gdqrulesdictionary",
+    "gdqrunorder",
+    "gdqocrunorder",
+    "gdqdatastorage_ltcg",
+    "gdqdatastorage_ltcghybrid"
+  ],
+  "classifier_params": {
+    "gdqprecondition": {
+      "classifier_name": "ta-individual-findw-<env>-gdq-precond-<project>",
+      "delimiter": "|",
+      "quote": "\"",
+      "header": [
+        "source_system",
+        "table_name",
+        "activity_flag",
+        "activity_order",
+        "activity_description"
+      ]
+    },
+    "gdqrulesdictionary": {
+      "classifier_name": "ta-individual-findw-<env>-gdq-rulesdict-<project>",
+      "delimiter": "|",
+      "quote": "\"",
+      "header": [
+        "activity_id",
+        "activity_name",
+        "code_parms",
+        "code",
+        "activity_description"
+      ]
+    },
+    "gdqrunorder": {
+      "classifier_name": "ta-individual-findw-<env>-gdq-runorder-<project>",
+      "delimiter": "|",
+      "quote": "\"",
+      "header": [
+        "source_system",
+        "table_name",
+        "cde_name",
+        "activity_order",
+        "data_type"
+      ]
+    },
+    "gdqocrunorder": {
+      "classifier_name": "ta-individual-findw-<env>-gdq-ocrunorder-<project>",
+      "delimiter": "|",
+      "quote": "\"",
+      "header": [
+        "activity_order",
+        "source_system",
+        "table_name",
+        "activity_flag",
+        "activity_description"
+      ]
+    },
+    "gdqdatastorage_ltcg": {
+      "classifier_name": "ta-individual-findw-<env>-gdq-ltcg-gdqdatastorage-<project>",
+      "delimiter": "|",
+      "quote": "\"",
+      "header": [
+        "dc_uuid",
+        "sourcesystem",
+        "gdqcolumnnamedc_uuid",
+        "sourcesystem",
+        "gdqcolumnname",
+        "naturalkey",
+        "cdekey",
+        "cdevalue",
+        "transformtype",
+        "isvalid",
+        "columntype",
+        "cde_number",
+        "time_stamp"
+      ]
+    },
+    "gdqdatastorage_ltcghybrid": {
+      "classifier_name": "ta-individual-findw-<env>-gdq-ltcghybrid-gdqdatastorage-<project>",
+      "delimiter": "|",
+      "quote": "\"",
+      "header": [
+        "dc_uuid",
+        "sourcesystem",
+        "gdqcolumnnamedc_uuid",
+        "sourcesystem",
+        "gdqcolumnname",
+        "naturalkey",
+        "cdekey",
+        "cdevalue",
+        "transformtype",
+        "isvalid",
+        "columntype",
+        "cde_number",
+        "time_stamp"
+      ]
+    }
+  },
+  "crawler_params": {
+    "gdqprecondition": {
+      "crawler_name": "ta-individual-findw-<env>-gdq-precond-<project>",
+      "classifier": "ta-individual-findw-<env>-gdq-precond-<project>",
+      "crawler_role": "ta-individual-findw-<env>-data-catalog",
+      "catalog_db_name": "ta_individual_findw_<env>_financedwdq<project>_override",
+      "s3_path": [
+        "s3://ta-individual-findw-<env>-governancedataquality/<project>/gdqprecondition/"
+      ]
+    },
+    "gdqrulesdictionary": {
+      "crawler_name": "ta-individual-findw-<env>-gdq-rulesdict-<project>",
+      "classifier": "ta-individual-findw-<env>-gdq-rulesdict-<project>",
+      "crawler_role": "ta-individual-findw-<env>-data-catalog",
+      "catalog_db_name": "ta_individual_findw_<env>_financedwdq<project>_override",
+      "s3_path": [
+        "s3://ta-individual-findw-<env>-governancedataquality/<project>/gdqrulesdictionary/"
+      ]
+    },
+    "gdqrunorder": {
+      "crawler_name": "ta-individual-findw-<env>-gdq-runorder-<project>",
+      "classifier": "ta-individual-findw-<env>-gdq-runorder-<project>",
+      "crawler_role": "ta-individual-findw-<env>-data-catalog",
+      "catalog_db_name": "ta_individual_findw_<env>_financedwdq<project>_override",
+      "s3_path": [
+        "s3://ta-individual-findw-<env>-governancedataquality/<project>/gdqrunorder/"
+      ]
+    },
+    "gdqocrunorder": {
+      "crawler_name": "ta-individual-findw-<env>-gdq-ocrunorder-<project>",
+      "classifier": "ta-individual-findw-<env>-gdq-ocrunorder-<project>",
+      "crawler_role": "ta-individual-findw-<env>-data-catalog",
+      "catalog_db_name": "ta_individual_findw_<env>_financedwdq<project>_override",
+      "s3_path": [
+        "s3://ta-individual-findw-<env>-governancedataquality/<project>/gdqocrunorder/"
+      ]
+    },
+    "gdqdatastorage_ltcg": {
+      "crawler_name": "ta-individual-findw-<env>-gdq-ltcg-gdqdatastorage-<project>",
+      "classifier": "ta-individual-findw-<env>-gdq-ltcg-gdqdatastorage-<project>",
+      "crawler_role": "ta-individual-findw-<env>-data-catalog",
+      "catalog_db_name": "ta_individual_findw_<env>_financedwdq<project>_override",
+      "s3_path": [
+        "s3://ta-individual-findw-<env>-governancedataquality/<project>/gdqdatastorage/"
+      ],
+      "update_config": "SchemaChangePolicy={\"UpdateBehavior\":\"UPDATE_IN_DATABASE\",\"DeleteBehavior\":\"DELETE_FROM_DATABASE\"}, RecrawlPolicy={\"RecrawlBehavior\":\"CRAWL_EVERYTHING\"}"
+    },
+    "gdqdatastorage_ltcghybrid": {
+      "crawler_name": "ta-individual-findw-<env>-gdq-ltcghybrid-gdqdatastorage-<project>",
+      "classifier": "ta-individual-findw-<env>-gdq-ltcghybrid-gdqdatastorage-<project>",
+      "crawler_role": "ta-individual-findw-<env>-data-catalog",
+      "catalog_db_name": "ta_individual_findw_<env>_financedwdq<project>_override",
+      "s3_path": [
+        "s3://ta-individual-findw-<env>-governancedataquality/<project>/gdqdatastorage/"
+      ],
+      "update_config": "SchemaChangePolicy={\"UpdateBehavior\":\"UPDATE_IN_DATABASE\",\"DeleteBehavior\":\"DELETE_FROM_DATABASE\"}, RecrawlPolicy={\"RecrawlBehavior\":\"CRAWL_EVERYTHING\"}"
+    }
+  }
+}

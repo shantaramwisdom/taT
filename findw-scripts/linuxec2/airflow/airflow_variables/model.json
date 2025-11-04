@@ -1,0 +1,30 @@
+{
+"long_running_redshift_queries_duration": "1 hours",
+"other_retries": 2,
+"parquet_merge_output_file_count": 2,
+"parquet_merge_parallel_process_count": 2,
+"parquet_merge_process_input_file_name_maintenance": "maintenance_input.txt",
+"parquet_merge_table_list": "ta_individual_findw_mdl_financedatastage.controllogging+ta_individual_findw_mdl_financemasterdatastore.controllogging+ta_individual_findw_mdl_financedatastage.dc_stats",
+"redshift_retries": 2,
+"emr_version": "",
+"dag_schedule": {
+"db": "3 * * * 1",
+"long_running_queries": "0 */2 * * 1-6",
+"weekly_missing_batches": "0 16 * * 1"
+},
+"boto3_retries": {"throttling_retries": 6, "sleep_secs": 30},
+"main_source_list": ["VantageP65SPL", "VantageP5", "VantageP6", "VantageP75", "ALM", "BaNCS"],
+"nyds_dict": {"maintenance": {"source_system": "VantageP5"}},
+"ltcghybrid": {"source_system": "VantageP65SPL"},
+"bestow": {"source_system": "ltcg"},
+"erpdw": {"source_system": "ltcghybrid"},
+"annuities": {"source_system": "VantageP65"},
+"geac": {"source_system": "VantageP75"},
+"curated": {"source_system": "aah"},
+"emr_serverless_sources": {
+"finance": {"emr_serverless": ["BaNCS", "VantageP5", "VantageP6", "VantageP65SPL", "VantageP75", "VantageP65", "VantageP65FA"]},
+"ltcg": {"ltcghybrid": ["ltcg"]},
+"bestow": {"erpdw": ["ltcghybrid"]},
+"annuities": {"emr_serverless": ["BaNCS", "VantageP5", "VantageP6", "VantageP75", "VantageP65", "VantageP65FA"]}
+}
+}

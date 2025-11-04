@@ -1,0 +1,191 @@
+{
+  "name": "<emr_name>-<cur_day_format>",
+  "step_concurrency_level": 15,
+  "log_uri": "s3://ta-individual-findw-<env>-logs/emr/",
+  "release_label": "emr-7.7.0",
+  "instance_type": "m5.4xlarge",
+  "applications": [
+    "Tez",
+    "Spark",
+    "Hive",
+    "Hadoop",
+    "Hue"
+  ],
+  "Keep_Alive": "True",
+  "Ebs_Root_Volume_Size": 100,
+  "Ec2_Key_Name": "ta-individual-findw-<env>-emr-ec2-role",
+  "InstanceProfile": "ta-individual-findw-<env>-emr-autoscale",
+  "Service_Role": "ta-individual-findw-<env>-emr",
+  "Auto_Scaling_Role": "ta-individual-findw-<env>-emr-autoscale",
+  "Security_Configuration": "ta-individual-findw-<env>-sec-config",
+  "Emr_Managed_Master_Security_Group": "sg-0549148d74ae0899f",
+  "Emr_Managed_Slave_Security_Group": "sg-0d9d24e003181272b",
+  "Service_Access_Security_Group": "sg-0276dcb09ea53ce67",
+  "Additional_Slave_Security_Groups": [
+    "sg-02450bf753a4c167d",
+    "sg-04889874ab3015808",
+    "sg-0b71e64749c864400"
+  ],
+  "Additional_Master_Security_Groups": [
+    "sg-02450bf753a4c167d",
+    "sg-04889874ab3015808",
+    "sg-0b71e64749c864400"
+  ],
+  "Subnet_Id": [
+    "subnet-8f4481b7214e6774a",
+    "subnet-8f4481b7214e6774a",
+    "subnet-03c543b21c361081e",
+    "subnet-0662afbf4807b1821"
+  ],
+  "Instance_Fleets": [
+    {
+      "Name": "ta-individual-findw-<env>-<project>-emr-master",
+      "InstanceFleetType": "MASTER",
+      "TargetOnDemandCapacity": 1,
+      "TargetSpotCapacity": 0,
+      "InstanceTypeConfigs": [
+        {
+          "InstanceType": "m5.4xlarge"
+        }
+      ]
+    },
+    {
+      "Name": "ta-individual-findw-<env>-<project>-emr-core",
+      "InstanceFleetType": "CORE",
+      "TargetOnDemandCapacity": 2,
+      "InstanceTypeConfigs": [
+        {
+          "InstanceType": "m5.8xlarge",
+          "WeightedCapacity": 4
+        },
+        {
+          "InstanceType": "m5.4xlarge",
+          "WeightedCapacity": 2
+        }
+      ]
+    },
+    {
+      "Name": "ta-individual-findw-<env>-<project>-emr-task",
+      "InstanceFleetType": "TASK",
+      "TargetOnDemandCapacity": 2,
+      "InstanceTypeConfigs": [
+        {
+          "InstanceType": "m5.4xlarge",
+          "WeightedCapacity": 2
+        },
+        {
+          "InstanceType": "m5.8xlarge",
+          "WeightedCapacity": 4
+        }
+      ]
+    }
+  ],
+  "Managed_Scaling_Policy": {
+    "ComputeLimits": {
+      "UnitType": "InstanceFleetUnits",
+      "MaximumOnDemandCapacityUnits": 48,
+      "MaximumCapacityUnits": 48,
+      "MinimumCapacityUnits": 2,
+      "MaximumCoreCapacityUnits": 8
+    }
+  },
+  "Configurations": [
+    {
+      "Classification": "spark",
+      "Properties": {
+        "maximizeResourceAllocation": "true"
+      }
+    },
+    {
+      "Classification": "spark-defaults",
+      "Properties": {
+        "spark.sql.parquet.datetimeRebaseModeInWrite": "CORRECTED",
+        "spark.sql.parquet.datetimeRebaseModeInRead": "CORRECTED",
+        "spark.sql.parquet.int96RebaseModeInRead": "CORRECTED",
+        "spark.sql.parquet.int96RebaseModeInWrite": "CORRECTED",
+        "spark.sql.parquet.writeLegacyFormat": "true",
+        "spark.sql.files.maxRecordsPerFile": "14600000",
+        "spark.executor.cores": "5",
+        "spark.executor.memory": "15G",
+        "spark.port.maxRetries": "100"
+      }
+    },
+    {
+      "Classification": "export",
+      "Properties": {
+        "PYSPARK_PYTHON": "/usr/bin/python3"
+      }
+    },
+    {
+      "Classification": "spark-env",
+      "Properties": {}
+    },
+    {
+      "Classification": "spark-hive-site",
+      "Properties": {
+        "hive.server2.session.check.interval": "3600000",
+        "hive.metastore.client.factory.class": "com.amazonaws.glue.catalog.metastore.AWSGlueDataCatalogHiveClientFactory",
+        "hive.server2.idle.operation.timeout": "7200000",
+        "hive.cluster.delegation.token.store.class": "org.apache.hadoop.hive.thrift.DBTokenStore",
+        "hive.server2.idle.session.timeout": "21600000"
+      }
+    },
+    {
+      "Classification": "yarn-site",
+      "Properties": {
+        "yarn.resourcemanager.scheduler.class": "org.apache.hadoop.yarn.server.resourcemanager.scheduler.fair.FairScheduler",
+        "yarn.resourcemanager.nodemanager-graceful-decommission-timeout-secs": "1800",
+        "yarn.scheduler.fair.max.assign": "50",
+        "yarn.scheduler.fair.allow-undeclared-pools": "false",
+        "yarn.scheduler.fair.preemption": "true",
+        "yarn.scheduler.fair.user-as-default-queue": "false"
+      }
+    },
+    {
+      "Classification": "hive-site",
+      "Properties": {
+        "hive.metastore.client.factory.class": "com.amazonaws.glue.catalog.metastore.AWSGlueDataCatalogHiveClientFactory"
+      }
+    },
+    {
+      "Classification": "core-site",
+      "Properties": {
+        "fs.s3.maxRetries": "200",
+        "fs.s3.maxConnections": "2000",
+        "fs.s3.threads.max": "1000",
+        "fs.s3a.connection.maximum": "2000"
+      }
+    },
+    {
+      "Classification": "oozie-site",
+      "Properties": {
+        "oozie.https.enabled": "false"
+      }
+    },
+    {
+      "Classification": "iceberg-defaults",
+      "Properties": {
+        "iceberg.enabled": "true"
+      }
+    }
+  ],
+  "Auto_Termination_Policy": {
+    "IdleTimeout": 3600
+  },
+  "Bootstrap_Actions": [
+    {
+      "Name": "Finance DW EMR BootStrap Action",
+      "ScriptBootstrapAction": {
+        "Path": "s3://ta-individual-findw-<env>-codedeployment/miscellaneous/bootstrap-action/bootstrap_action.sh",
+        "Args": [
+          "<env>",
+          "ta-individual-findw-<env>-common",
+          "findw",
+          "<project>",
+          "<cycle_date>",
+          "<cde_flag>"
+        ]
+      }
+    }
+  ]
+}
