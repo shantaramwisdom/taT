@@ -1,0 +1,5 @@
+-- 04+DIM_CNTRT_STS+rdm.sql
+SELECT
+*
+FROM
+    TIME_SCH.DIM_CNTRT_STS

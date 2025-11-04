@@ -1,0 +1,6 @@
+datastage|dcmkdbpriceindex|Y|
+datastage|dcmkdbsuspects_treasuryrate|Y|
+datastage|dcmkdbtreasuryrate|Y|
+datastage|hawkdbpriceindex|Y|
+datastage|hawkdbsuspects_treasuryrate|Y|
+datastage|hawkdbtreasuryate|Y|

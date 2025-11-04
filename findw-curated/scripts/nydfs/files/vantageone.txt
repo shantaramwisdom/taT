@@ -1,0 +1,3 @@
+datastage|dcvantageoneacctctr|Y|
+datastage|hvantageoneacctctr|Y|
+gdq|gdqvantageoneacctctr|Y|

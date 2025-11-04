@@ -1,0 +1,9 @@
+SELECT
+ACTVTY_SRC_TXN_CD_SRC as source_val,
+Includ_Excld as return_val,
+ACTVTY_SRC_TXN_CD as return_val,
+SRC_SYS_NM
+FROM
+TIME_SCH.LKP_ACTVTY_SRC_TXN_CD
+WHERE
+SRC_SYS_NM = 'LTCG'

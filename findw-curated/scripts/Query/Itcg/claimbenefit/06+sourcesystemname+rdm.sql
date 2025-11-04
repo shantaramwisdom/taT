@@ -1,0 +1,7 @@
+-- 06+sourcesystemname+rdm.sql
+SELECT
+*
+FROM
+    TIME_SCH.LKP_CNTRT_SRC_SYS_NM
+WHERE
+    CNTRT_SRC_SYS_NM_SRC='LTCG'

@@ -1,0 +1,6 @@
+curated|ltcg_activity|Y|contractnumber|
+curated|ltcg_claim|N|contractnumber|
+curated|ltcg_claimmasterit|N|contractnumber|
+curated|ltcg_contractoption|N|contractnumber|
+curated|ltcg_contractorsdetaildrft|N|contractnumber|
+curated|ltcg_masterpool|Y|

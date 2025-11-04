@@ -1,0 +1,2 @@
+select *
+from time_sch.rr_ra01_cntr_to_cntr_mppng

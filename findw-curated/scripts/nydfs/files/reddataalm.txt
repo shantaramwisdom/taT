@@ -1,0 +1,4 @@
+datastage|dcrefdataalmoptionvalue|Y|
+datastage|dcrefdataalmoptionvaluecorr|Y|
+datastage|hrefdataalmoptionvalue|Y|
+datastage|hrefdataalmoptionvaluecorr|Y|

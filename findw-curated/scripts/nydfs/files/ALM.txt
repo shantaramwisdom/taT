@@ -1,0 +1,4 @@
+datastage|dcasfw_accounts|Y|
+datastage|hawxs_accounts|Y|
+psql|dcasfw_almonly|Y|
+curated|Lta_trend|Y|

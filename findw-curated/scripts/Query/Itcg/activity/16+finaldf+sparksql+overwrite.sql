@@ -1,0 +1,160 @@
+select
+recorded_timestamp
+,source_system_name
+,activity_sourced_from_desc
+,documentid
+,fkcontractdocumentid
+,fkclaimbenefitdocumentid
+,fkclaimdocumentid
+,activityamounttype
+,activitytype
+,sourceactivityid
+,sourcesystemname
+,contractnumber
+,contractadministrationlocationcode
+,activityaccountingbalancedentryindicator
+,activityaccountingid
+,cast(activityamount as decimal(18,2)) as activityamount
+,activitydepositsourcebatchidentifier
+,cast(activityeffectivedate as date) as activityeffectivedate
+,activitygeneralledgerapplicationareacode
+,activitygeneralledgersourcecode
+,activitymoneymethod
+,cast(activityreporteddate as date) as activityreporteddate
+,activityreversalcode
+,activitysourceaccountingdeviator
+,activitysourceaccountingmemo
+,activitysourcedisbursementidentifier
+,activitysourceoriginatinguserid
+,activitysourceparentsuspenseidentifier
+,activitysourcesuspensematchingreferencenumber
+,activitysourcesuspensereason
+,activitysourcesuspensereferencenumber
+,activitysourcesystemaccountinstruction
+,activitysourcesystemcenterinstruction
+,activitysourcetransactioncode
+,activitytypegroup
+,cast(claimbenefitlineindicator as int) as claimbenefitlineindicator
+,fundclassindicator
+,fundnumber
+,activitylegalcompanycode
+,activitysourceactivityparentid
+,activitysourceclaimidentifier
+,fundsourcefundidentifier
+,activitysourcelegalentitycode
+,activitysourcesystemactivityid
+,activitysourcesystembatchidentifier
+,cast(activitytaxreportingeffectivedate as date) as activitytaxreportingeffectivedate
+,cast(activitypaymentduedate as date) as activitypaymentduedate
+,activitychecknumber
+,cycle_date
+,batch_id
+from activitypremium_final
+union all
+select
+recorded_timestamp
+,source_system_name
+,activity_sourced_from_desc
+,documentid
+,fkcontractdocumentid
+,fkclaimbenefitdocumentid
+,fkclaimdocumentid
+,activityamounttype
+,activitytype
+,sourceactivityid
+,sourcesystemname
+,contractnumber
+,contractadministrationlocationcode
+,activityaccountingbalancedentryindicator
+,activityaccountingid
+,cast(activityamount as decimal(18,2)) as activityamount
+,activitydepositsourcebatchidentifier
+,cast(activityeffectivedate as date) as activityeffectivedate
+,activitygeneralledgerapplicationareacode
+,activitygeneralledgersourcecode
+,activitymoneymethod
+,cast(activityreporteddate as date) as activityreporteddate
+,activityreversalcode
+,activitysourceaccountingdeviator
+,activitysourceaccountingmemo
+,activitysourcedepositidentifier
+,activitysourcedisbursementidentifier
+,activitysourceoriginatinguserid
+,activitysourceparentsuspenseidentifier
+,activitysourcesuspensematchingreferencenumber
+,activitysourcesuspensereason
+,activitysourcesuspensereferencenumber
+,activitysourcesystemaccountinstruction
+,activitysourcesystemcenterinstruction
+,activitysourcetransactioncode
+,activitytypegroup
+,cast(claimbenefitlineindicator as int) as claimbenefitlineindicator
+,fundclassindicator
+,fundnumber
+,activitylegalcompanycode
+,activitysourceactivityparentid
+,activitysourceclaimidentifier
+,fundsourcefundidentifier
+,activitysourcelegalentitycode
+,activitysourcesystemactivityid
+,activitysourcesystembatchidentifier
+,cast(activitytaxreportingeffectivedate as date) as activitytaxreportingeffectivedate
+,cast(activitypaymentduedate as date) as activitypaymentduedate
+,activitychecknumber
+,cycle_date
+,batch_id
+from claimsadjustment_final
+union all
+select
+recorded_timestamp
+,source_system_name
+,activity_sourced_from_desc
+,documentid
+,fkcontractdocumentid
+,fkclaimbenefitdocumentid
+,fkclaimdocumentid
+,activityamounttype
+,activitytype
+,sourceactivityid
+,sourcesystemname
+,contractnumber
+,contractadministrationlocationcode
+,activityaccountingbalancedentryindicator
+,activityaccountingid
+,cast(activityamount as decimal(18,2)) as activityamount
+,activitydepositsourcebatchidentifier
+,cast(activityeffectivedate as date) as activityeffectivedate
+,activitygeneralledgerapplicationareacode
+,activitygeneralledgersourcecode
+,activitymoneymethod
+,cast(activityreporteddate as date) as activityreporteddate
+,activityreversalcode
+,activitysourceaccountingdeviator
+,activitysourceaccountingmemo
+,activitysourcedepositidentifier
+,activitysourcedisbursementidentifier
+,activitysourceoriginatinguserid
+,activitysourceparentsuspenseidentifier
+,activitysourcesuspensematchingreferencenumber
+,activitysourcesuspensereason
+,activitysourcesuspensereferencenumber
+,activitysourcesystemaccountinstruction
+,activitysourcesystemcenterinstruction
+,activitysourcetransactioncode
+,activitytypegroup
+,cast(claimbenefitlineindicator as int) as claimbenefitlineindicator
+,fundclassindicator
+,fundnumber
+,activitylegalcompanycode
+,activitysourceactivityparentid
+,activitysourceclaimidentifier
+,fundsourcefundidentifier
+,activitysourcelegalentitycode
+,activitysourcesystemactivityid
+,activitysourcesystembatchidentifier
+,cast(activitytaxreportingeffectivedate as date) as activitytaxreportingeffectivedate
+,cast(activitypaymentduedate as date) as activitypaymentduedate
+,activitychecknumber
+,cycle_date
+,batch_id
+from claimspayment_final

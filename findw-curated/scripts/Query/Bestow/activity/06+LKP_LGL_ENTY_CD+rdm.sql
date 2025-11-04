@@ -1,0 +1,6 @@
+SELECT LGL_ENTY_CD,
+       CNTRT_SRC_SYS_NM,
+       SRC_LGL_ENTY_CD
+FROM TIME_SCH.LKP_LGL_ENTY_CD
+WHERE CNTRT_SRC_SYS_NM = 'Bestow'
+  AND to_timestamp('{cycle_date}', 'yyyy-mm-dd') BETWEEN EFF_STRT_DT AND EFF_STOP_DT

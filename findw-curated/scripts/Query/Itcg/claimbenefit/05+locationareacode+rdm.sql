@@ -1,0 +1,8 @@
+-- 05+locationareacode+rdm.sql
+SELECT
+    CLM_BNFT_TYP_CD,
+    CLM_BNFT_LOC_OF_CARE_CD
+FROM
+    TIME_SCH.LKP_CLM_BNFT_LOC_OF_CARE_CD
+WHERE
+    SRC_SYS_NM='LTCG'
