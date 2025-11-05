@@ -2004,9 +2004,121 @@ def validate_code_files(querypath, s3_querypath, read_from_s3):
 
 
 # Create Dataframes
+def _enforce_rdm_transaction_forced_errors(df):
+    """Force all rows in a transaction to error if any row has an RDM lookup issue."""
+
+    cols = set(df.columns)
+    transaction_col = next((c for c in ("transaction_number_drvd", "transaction_number") if c in cols), None)
+    if not transaction_col or "original_cycle_date" not in cols or "original_batch_id" not in cols:
+        return df
+
+    error_columns = [c for c in (
+        "error_message",
+        "error_message_",
+        "hard_error_message",
+        "hard_error_message_",
+        "hard_error_message_forced",
+        "soft_error_message",
+        "header_error_message",
+        "header_error_message_",
+        "line_error_message",
+        "line_error_message_",
+    ) if c in cols]
+
+    if not error_columns:
+        return df
+
+    rdm_indicator = None
+    for col in error_columns:
+        condition = F.upper(F.coalesce(F.col(col), F.lit(""))).contains("RDM")
+        rdm_indicator = condition if rdm_indicator is None else (rdm_indicator | condition)
+
+    if rdm_indicator is None:
+        return df
+
+    df = df.withColumn("_rdm_error_flag", F.when(rdm_indicator, F.lit(1)).otherwise(F.lit(0)))
+    txn_window = Window.partitionBy(
+        F.col("original_cycle_date"),
+        F.col("original_batch_id"),
+        F.col(transaction_col)
+    )
+    df = df.withColumn("_rdm_error_any", F.max(F.col("_rdm_error_flag")).over(txn_window))
+
+    forced_condition = (F.col("_rdm_error_any") == 1) & (F.col("_rdm_error_flag") == 0)
+    forced_message = F.concat(
+        F.lit("XForced Error. Hard Errors - Missing RDM Lookup for transaction_number "),
+        F.coalesce(F.col(transaction_col).cast("string"), F.lit("UNKNOWN")),
+        F.lit(";")
+    )
+
+    def _apply_forced_message(column_name, append_existing=True):
+        if column_name not in cols:
+            return df
+        existing = F.coalesce(F.col(column_name), F.lit("")) if append_existing else F.col(column_name)
+        replacement = forced_message if not append_existing else F.concat(forced_message, existing)
+        return df.withColumn(
+            column_name,
+            F.when(forced_condition, replacement).otherwise(F.col(column_name))
+        )
+
+    for base_column in [
+        "error_message",
+        "error_message_",
+        "soft_error_message",
+        "header_error_message",
+        "header_error_message_",
+        "line_error_message",
+        "line_error_message_",
+    ]:
+        df = _apply_forced_message(base_column)
+    if "hard_error_message_forced" in cols:
+        df = df.withColumn(
+            "hard_error_message_forced",
+            F.when(
+                forced_condition,
+                F.concat(forced_message, F.coalesce(F.col("hard_error_message_forced"), F.lit("")))
+            ).otherwise(F.col("hard_error_message_forced"))
+        )
+    if "hard_error_message_" in cols:
+        df = df.withColumn(
+            "hard_error_message_",
+            F.when(
+                forced_condition,
+                F.concat(forced_message, F.coalesce(F.col("hard_error_message_"), F.lit("")))
+            ).otherwise(F.col("hard_error_message_"))
+        )
+    if "hard_error_message" in cols:
+        df = df.withColumn(
+            "hard_error_message",
+            F.when(
+                forced_condition,
+                F.concat(forced_message, F.coalesce(F.col("hard_error_message"), F.lit("")))
+            ).otherwise(F.col("hard_error_message"))
+        )
+    if "reprocess_flag" in cols:
+        df = df.withColumn(
+            "reprocess_flag",
+            F.when(forced_condition, F.lit("N")).otherwise(F.col("reprocess_flag"))
+        )
+    if "reprocess_flag_forced" in cols:
+        df = df.withColumn(
+            "reprocess_flag_forced",
+            F.when(forced_condition, F.lit("N")).otherwise(F.col("reprocess_flag_forced"))
+        )
+    if "error_cleared" in cols:
+        df = df.withColumn(
+            "error_cleared",
+            F.when(forced_condition, F.lit("Hard Error")).otherwise(F.col("error_cleared"))
+        )
+
+    return df.drop("_rdm_error_flag", "_rdm_error_any")
+
+
 def prepare_dataframes(df, df_name, start_time=None):
     if not start_time:
         start_time = datetime.now(cst_tz)
+    if df_name == 'source_df':
+        df = _enforce_rdm_transaction_forced_errors(df)
     globals()[df_name] = df.cache()
     globals()[df_name].createOrReplaceTempView(df_name)
     cnt = globals()[df_name].count()
